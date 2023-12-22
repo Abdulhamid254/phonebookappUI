@@ -1,8 +1,8 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, tap, throwError } from 'rxjs';
-import { CustomResponse } from '../interfaces/custom-response';
-import { Contact } from '../interfaces/contact';
+import { CustomResponse } from '../core/interfaces/custom-response';
+import { Contact } from '../core/interfaces/contact';
 
 @Injectable({
   providedIn: 'root'
@@ -22,17 +22,17 @@ export class ContactService {
 
   constructor(private http: HttpClient) { }
 
-  private handleError(error: HttpErrorResponse): Observable<never>{
-    console.log(error);
-    return throwError("Method not implemented .")
+  // private handleError(error: HttpErrorResponse): Observable<never>{
+  //   console.log(error);
+  //   return throwError("Method not implemented .")
 
-  }
+  // }
 
   contacts$ = <Observable<CustomResponse>>
   this.http.get<CustomResponse>(`${this.apiUrl}/contact/list`)
   .pipe(
     tap(console.log),
-    catchError(this.handleError)
+    // catchError(this.handleError)
     );
 
 
@@ -40,14 +40,14 @@ export class ContactService {
     this.http.post<CustomResponse>(`${this.apiUrl}/contact/save`, contact)
      .pipe(
      tap(console.log),
-     catchError(this.handleError)
+    //  catchError(this.handleError)
     );
 
     delete$ = (contactId: number) => <Observable<CustomResponse>>
         this.http.delete<CustomResponse>(`${this.apiUrl}/server/delete/${contactId}`)
           .pipe(
             tap(console.log),
-            catchError(this.handleError)
+            // catchError(this.handleError)
           );
 
 }

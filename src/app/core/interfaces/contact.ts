@@ -1,7 +1,7 @@
 export interface Contact {
   id: number;
   firstName: string;
-  laastName: string;
+  lastName: string;
   email:string;
   phoneNumber: string;
   address: string;
