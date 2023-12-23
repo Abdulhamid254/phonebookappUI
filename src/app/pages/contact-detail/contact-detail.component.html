@@ -1,1 +1,44 @@
-<p>contact-detail works!</p>
+<div class="max-w-md mx-auto mt-8 bg-white rounded-xl overflow-hidden shadow-lg">
+  <div class="p-6">
+    <h1 class="text-3xl text-center font-bold mb-4">User Details</h1>
+
+    <!-- Check if contact$ is defined before accessing its properties -->
+    <ng-container *ngIf="contact$ as res">
+      <div class="flex items-center justify-between mb-4">
+        <label class="text-gray-600">ID:</label>
+        <span class="text-black">{{ res.data.contact.id }}</span>
+      </div>
+
+      <div class="flex items-center justify-between mb-4">
+        <label class="text-gray-600">First Name:</label>
+        <span class="text-black">{{ res.data.contact.firstName }}</span>
+      </div>
+
+      <div class="flex items-center justify-between mb-4">
+        <label class="text-gray-600">Last Name:</label>
+        <span class="text-black">{{ res.data.contact.lastName }}</span>
+      </div>
+
+      <div class="flex items-center justify-between mb-4">
+        <label class="text-gray-600">Email:</label>
+        <span class="text-black">{{ res.data.contact.email }}</span>
+      </div>
+
+      <div class="flex items-center justify-between mb-4">
+        <label class="text-gray-600">Phone Number:</label>
+        <span class="text-black">{{ res.data.contact.phoneNumber }}</span>
+      </div>
+
+      <div class="flex items-center justify-between mb-4">
+        <label class="text-gray-600">Address:</label>
+        <span class="text-black">{{ res.data.contact.address }}</span>
+      </div>
+
+      <div class="flex items-center justify-between mb-4">
+        <label class="text-gray-600">Username:</label>
+        <span class="text-black">{{ res.data.contact.username }}</span>
+      </div>
+    </ng-container>
+
+  </div>
+</div>

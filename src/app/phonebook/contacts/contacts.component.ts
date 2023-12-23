@@ -14,13 +14,14 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TemplateContactFormComponent } from '../../core/template-contact-form/template-contact-form.component';
 import { MatDialog } from '@angular/material/dialog';
+import { RouterModule } from '@angular/router';
 
 
 
 @Component({
   selector: 'app-contacts',
   standalone: true,
-  imports: [CommonModule,FormsModule,MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule],
+  imports: [CommonModule,RouterModule,FormsModule,MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule],
   templateUrl: './contacts.component.html',
   styleUrl: './contacts.component.css'
 })
@@ -38,6 +39,7 @@ export class ContactsComponent implements OnInit, AfterViewInit{
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+
 
   constructor( private contactService: ContactService,private dialog: MatDialog) {
 

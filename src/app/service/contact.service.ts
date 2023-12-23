@@ -23,6 +23,7 @@ export class ContactService {
 
   // }
 
+//fetching all contacts
   contacts$ = <Observable<CustomResponse>>
   this.http.get<CustomResponse>(`${this.apiUrl}/contact/list`)
   .pipe(
@@ -30,7 +31,15 @@ export class ContactService {
     // catchError(this.handleError)
     );
 
+// getting a single contact
+ contact$ = (contactId:number) => <Observable<CustomResponse>>
+    this.http.get<CustomResponse>(`${this.apiUrl}/contact/get/${contactId}`)
+    .pipe(
+      tap(console.log)
+    )
 
+
+//saving a contact
   save$ = (contact:Contact) => <Observable<CustomResponse>>
     this.http.post<CustomResponse>(`${this.apiUrl}/contact/save`, contact)
      .pipe(
@@ -38,6 +47,8 @@ export class ContactService {
     //  catchError(this.handleError)
     );
 
+
+    //deleting a contact
     delete$ = (contactId: number) => <Observable<CustomResponse>>
         this.http.delete<CustomResponse>(`${this.apiUrl}/contact/delete/${contactId}`)
           .pipe(
@@ -45,6 +56,7 @@ export class ContactService {
             // catchError(this.handleError)
           );
 
+          //updating contact
    update$ = (contactId: number, data:Contact) => <Observable<CustomResponse>>
           this.http.put<CustomResponse>(`${this.apiUrl}/contact/update/${contactId}`, data)
             .pipe(
