@@ -1,0 +1,42 @@
+<div mat-dialog-title>
+  <h1 class="text-3xl justify-center">Contact Form</h1>
+</div>
+<form #form="ngForm" (ngSubmit)="onFormSubmit(form, $event)" [ngFormOptions]="{ updateOn: 'blur'}" class=" bg-gray-100 p-5 rounded-md">
+  <!-- <p>Form Model State</p>
+  <pre>{{ userInfo | json }}</pre> -->
+  <div class="flex flex-col py-2">
+    <label for="firstName">First Name</label>
+    <!-- if directive and the selector are the same we can use directive alone without the selector like our case below -->
+    <!-- [ngModelOptions]="{ name: 'firstName', updateOn: 'change', standalone: true }"  -->
+      <!-- updateOn blur is commonly used because it is performance excellennt & cost effective -->
+    <input ngModel [(ngModel)]="userInfo.firstName" name="firstName" type="text" id="firstName" placeholder="Enter your name" class="contactInput ">
+  </div>
+  <div class="flex flex-col py-2">
+    <label for="lastName">Last Name</label>
+    <input ngModel [(ngModel)]="userInfo.lastName" name="lastName" type="text" id="lastName" placeholder="Enter your last name" class="contactInput ">
+  </div>
+  <div class="flex flex-col py-2">
+    <label for="username">Username</label>
+    <input ngModel [(ngModel)]="userInfo.username" name="username" type="text" id="username" placeholder="Come up with a username" class="contactInput ">
+  </div>
+  <div class="flex flex-col py-2">
+    <label for="email">Email</label>
+    <input ngModel [(ngModel)]="userInfo.email" name="email" type="email" id="email" placeholder="Provide your email" class="contactInput ">
+  </div>
+
+  <div class="flex flex-col py-2">
+    <label for="phoneNumber">Phonenumber</label>
+    <input ngModel [(ngModel)]="userInfo.email" name="phoneNumber" type="text" id="phoneNumber" placeholder="Provide your phoneNumber" class="contactInput ">
+  </div>
+
+
+
+  <fieldset class="border-2 border-y-gray-200 rounded-lg p-4 space-y-2 mt-2">
+    <legend>Address</legend>
+    <input [(ngModel)]="userInfo.address" name="address" type="text" id="address" placeholder="Fill address" class="contactInput">
+  </fieldset>
+  <div class="flex justify-between mt-4 mx-auto">
+  <button  class="bg-[#f72d0ae7] py-2 px-10 rounded-md text-black font-bold text-xs">Cancel</button>
+  <button type="submit" class="bg-[#F7AB0A] py-2 px-10 rounded-md text-black font-bold text-xs"> {{ data && data.contact ? 'Update' : 'Save' }}</button>
+</div>
+</form>

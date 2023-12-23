@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, tap, throwError } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { CustomResponse } from '../core/interfaces/custom-response';
 import { Contact } from '../core/interfaces/contact';
 
@@ -10,15 +10,10 @@ import { Contact } from '../core/interfaces/contact';
 export class ContactService {
   private readonly apiUrl = 'http://localhost:8080';
 
-  // updatePost(postId: number, body: string) {
-  //   return this.http
-  //     .put(
-  //       `${environment.baseApiUrl}/feed/${postId}`,
-  //       { body },
-  //       this.httpOptions
-  //     )
-  //     .pipe(take(1));
-  // }
+
+
+
+
 
   constructor(private http: HttpClient) { }
 
@@ -44,10 +39,45 @@ export class ContactService {
     );
 
     delete$ = (contactId: number) => <Observable<CustomResponse>>
-        this.http.delete<CustomResponse>(`${this.apiUrl}/server/delete/${contactId}`)
+        this.http.delete<CustomResponse>(`${this.apiUrl}/contact/delete/${contactId}`)
           .pipe(
             tap(console.log),
             // catchError(this.handleError)
           );
+
+   update$ = (contactId: number, data:Contact) => <Observable<CustomResponse>>
+          this.http.put<CustomResponse>(`${this.apiUrl}/contact/update/${contactId}`, data)
+            .pipe(
+              tap(console.log),
+              // catchError(this.handleError)
+            );
+
+            filter$ = (response: CustomResponse, filterOptions: { firstName?: string, lastName?: string, username?: string }) => <Observable<CustomResponse>>new Observable<CustomResponse>(
+              subscriber => {
+                const filteredServers = response.data.contacts!
+                  .filter(contact =>
+                    (!filterOptions.firstName || contact.firstName === filterOptions.firstName) &&
+                    (!filterOptions.lastName || contact.lastName === filterOptions.lastName) &&
+                    (!filterOptions.username || contact.username === filterOptions.username)
+                  );
+
+                const message = filteredServers.length > 0 ?
+                  `Contacts filtered based on criteria` :
+                  `No contacts found based on criteria`;
+
+                subscriber.next({
+                  ...response,
+                  message,
+                  data: {
+                    contacts: filteredServers
+                  }
+                });
+
+                subscriber.complete();
+              }
+            ).pipe(
+              tap(console.log),
+
+            );
 
 }

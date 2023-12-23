@@ -1,0 +1,12 @@
+.delete-product-form {
+  min-width: 600px;
+}
+
+.mat-form-field {
+  display: block;
+}
+
+textarea {
+  height: 80px;
+  resize: vertical;
+}
