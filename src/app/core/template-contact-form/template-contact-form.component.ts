@@ -33,8 +33,8 @@ export class TemplateContactFormComponent implements OnInit {
 
   @ViewChild('form') form: NgForm;
 
-  constructor(    private contactService: ContactService,
-    _coreService: CoreService,
+  constructor(private contactService: ContactService,
+    private coreService: CoreService,
     private _dialogRef: MatDialogRef<TemplateContactFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { contact: ContactInfo }) {}
 
@@ -46,12 +46,6 @@ export class TemplateContactFormComponent implements OnInit {
     }
 
 
-  // onSubmitForm(form:NgForm, e: SubmitEvent) {
-  //   console.log('Form implemented.',form.value);
-  //   console.log('This is the native Submi  Event',e);
-
-  //   }
-
   onFormSubmit(form: NgForm, e: SubmitEvent) {
     if (this.form.valid) {
       if (this.data && this.data.contact) {
@@ -60,7 +54,7 @@ export class TemplateContactFormComponent implements OnInit {
           .update$(this.data.contact.id, this.form.value)
           .subscribe({
             next: (val: any) => {
-              // this._coreService.openSnackBar('Contact detail updated!');
+              this.coreService.openSnackBar('Contact detail updated Successfully 👍!');
               this._dialogRef.close(true);
             },
             error: (err: any) => {
@@ -71,7 +65,7 @@ export class TemplateContactFormComponent implements OnInit {
         // Add new contact logic
         this.contactService.save$(this.form.value).subscribe({
           next: (val: any) => {
-            // this._coreService.openSnackBar('Employee added successfully');
+            this.coreService.openSnackBar('Contact added successfully 👍');
             this._dialogRef.close(true);
           },
           error: (err: any) => {
