@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ContactService } from '../../service/contact.service';
 import { CommonModule } from '@angular/common';
 import { CustomResponse } from '../../core/interfaces/custom-response';
+import { CoreService } from '../../service/core.service';
 
 @Component({
   selector: 'app-contact-detail',
@@ -14,7 +15,7 @@ import { CustomResponse } from '../../core/interfaces/custom-response';
 export class ContactDetailComponent implements OnInit {
   contact$: CustomResponse;
 
-  constructor(private activatedRoute: ActivatedRoute, private contactService: ContactService) {}
+  constructor(private activatedRoute: ActivatedRoute, private contactService: ContactService,private coreService:CoreService) {}
 
   ngOnInit(): void {
     // Get the contactId from the route parameters
@@ -22,11 +23,11 @@ export class ContactDetailComponent implements OnInit {
 
     this.contactService.contact$(contactId).subscribe({
       next: (contact: CustomResponse) => {
-        console.log('Contact details retrieved successfully:', contact);
+        this.coreService.openSnackBar('Contact details retrieved Successfully 👍!');
         this.contact$ = contact;
       },
-      error: (error) => {
-        console.error('Error fetching contact details:', error);
+      error: (error:Error) => {
+        this.coreService.openSnackBar('Error Occureed ⚠️!');
       },
     });
   }

@@ -42,7 +42,6 @@ export class ContactsComponent implements OnInit, AfterViewInit{
   displayedColumns: string[] = ['id','select','firstName', 'lastName','email', 'phoneNumber', 'address', 'username', 'actions'];
   dataSource$: MatTableDataSource<Contact>;
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
 
@@ -59,7 +58,7 @@ export class ContactsComponent implements OnInit, AfterViewInit{
   ngAfterViewInit(): void {
     // Set the sort and paginator for MatTableDataSource
     this.dataSource$.sort = this.sort;
-    this.dataSource$.paginator = this.paginator;
+
   }
 
   applyFilter(event: Event) {
