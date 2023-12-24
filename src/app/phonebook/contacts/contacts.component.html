@@ -178,18 +178,18 @@
         </div>
 
         <ng-template #list_content>
-          <!-- List View Content as Bootstrap Cards -->
           <div class="grid grid-cols-4 gap-4">
             <div
               class="card bg-white p-3 rounded-lg"
               *ngFor="let contact of appState.appData.data.contacts"
             >
-              <div class="flex flex-col justify-center">
+              <div class="flex flex-col justify-center items-center">
+                <img src="assets/contacts.jfif" alt="Contact Image" class="mb-2" width="100" height="100">
                 <h5 class="text-2xl text-center">
-                  {{ contact.firstName }} {{ contact.lastName }}
+                    Name: {{ contact.firstName }} {{ contact.lastName }}
                 </h5>
-                <p class="text-gray-400 text-center">{{ contact.email }}</p>
-                <p class="text-1xl text-center">{{ contact.username }}</p>
+                <p class="text-gray-400 text-center">Mail 📧: {{ contact.email }}</p>
+                <p class="text-1xl text-center">User 🧭: {{ contact.username }}</p>
               </div>
             </div>
           </div>
