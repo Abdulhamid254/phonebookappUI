@@ -60,6 +60,8 @@ export class ContactsComponent implements OnInit, AfterViewInit {
   form: NgForm;
   sortDirection: 'asc' | 'desc' = 'asc';
 
+
+
   displayedColumns: string[] = [
     'id',
     'select',
@@ -90,25 +92,29 @@ export class ContactsComponent implements OnInit, AfterViewInit {
     this.dataSource$.sort = this.sort;
   }
 
-  // Sorting functions for firstName
-  sortData(): void {
-    const sortMultiplier = this.sortDirection === 'asc' ? 1 : -1;
+// Sorting functions for firstName
+sortData(): void {
+  const sortMultiplier = this.sortDirection === 'asc' ? 1 : -1;
 
-    this.dataSource$.data = this.dataSource$.data.sort((a, b) => {
-      return a.firstName.localeCompare(b.firstName) * sortMultiplier;
-    });
-  }
+  this.dataSource$.data = this.dataSource$.data.sort((a, b) => {
+    return a.firstName.localeCompare(b.firstName) * sortMultiplier;
+  });
+}
 
-  onSortUpdated(direction: 'asc' | 'desc'): void {
-    this.sortDirection = direction;
-    this.sortData();
-  }
+onSortUpdated(direction: 'asc' | 'desc'): void {
+  this.sortDirection = direction;
+  this.sortData();
+}
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
 
     this.dataSource$.filter = filterValue.trim().toLowerCase();
+
   }
+
+
+
 
   getContacts() {
     this.appState$ = this.contactService.contacts$.pipe(
@@ -276,7 +282,7 @@ export class ContactsComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe({
-      next: (val: any) => {
+      next: (val: unknown) => {
         if (val) {
           this.getContacts();
         }

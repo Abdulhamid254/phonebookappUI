@@ -56,24 +56,24 @@ export class TemplateContactFormComponent implements OnInit {
         this.contactService
           .update$(this.data.contact.id, this.form.value)
           .subscribe({
-            next: (val: any) => {
+            next: (val: unknown) => {
               this.coreService.openSnackBar(
                 'Contact detail updated Successfully 👍!'
               );
               this._dialogRef.close(true);
             },
-            error: (err: any) => {
+            error: (err: Error) => {
               console.error(err);
             },
           });
       } else {
         // Add new contact logic
         this.contactService.save$(this.form.value).subscribe({
-          next: (val: any) => {
+          next: (val: unknown) => {
             this.coreService.openSnackBar('Contact added successfully 👍');
             this._dialogRef.close(true);
           },
-          error: (err: any) => {
+          error: (err: Error) => {
             console.error(err);
           },
         });
