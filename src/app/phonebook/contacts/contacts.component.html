@@ -2,6 +2,20 @@
   <div class="table-title">
     <div class="mb-2 flex justify-between">
       <h2 class="text-bold text-3xl">Manage Contacts</h2>
+      <div class="flex justify-center bg-slate-400 p-3 rounded-lg">
+        <button mat-button [matMenuTriggerFor]="sortByMenu">
+          Sort by
+          <mat-icon>expand_more</mat-icon>
+        </button>
+        <mat-menu #sortByMenu="matMenu">
+          <button (click)="onSortUpdated('asc')" mat-menu-item>
+            Ascending
+          </button>
+          <button (click)="onSortUpdated('desc')" mat-menu-item>
+            Descending
+          </button>
+        </mat-menu>
+      </div>
       <div class="p-2 space-x-2 text-white flex">
         <div id="view" class="e-btn-group space-x-2 flex cursor-pointer">
           <div class="bg-blue-500 rounded-md p-2 text-white">
@@ -53,8 +67,15 @@
       [ngSwitch]="appState.dataState"
     >
       <ng-container *ngSwitchCase="DataState.LOADING_STATE">
-        <div class="col-md-12 single-note-item text-center text-white rounded-md mb-2">
-          <button type="button" class="bg-indigo-500 w-32 h-12 ..." disabled role="status">
+        <div
+          class="col-md-12 single-note-item text-center text-white rounded-md mb-2"
+        >
+          <button
+            type="button"
+            class="bg-indigo-500 w-32 h-12 ..."
+            disabled
+            role="status"
+          >
             <svg class="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
               <!-- ... -->
             </svg>
@@ -66,14 +87,13 @@
         <!-- Mat-Table Section -->
         <div
           class="mat-elevation-z8"
-          matSort
           class="row"
           *ngIf="display === 1; else list_content"
         >
-          <table mat-table matSort [dataSource]="dataSource$" >
+          <table mat-table matSort [dataSource]="dataSource$">
             <!-- checkbox -->
             <ng-container matColumnDef="select">
-              <th mat-header-cell  *matHeaderCellDef>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
                 <mat-checkbox
                   (change)="toggleAllSelection()"
                   [checked]="isAllSelected()"
@@ -174,22 +194,33 @@
               </td>
             </tr>
           </table>
-
         </div>
 
         <ng-template #list_content>
           <div class="grid grid-cols-4 gap-4">
             <div
-              class="card bg-white p-3 rounded-lg"
-              *ngFor="let contact of appState.appData.data.contacts"
+              class="card bg-white p-3 hover:bg-gray-100 hover:scale-105 transition transform duration-200 ease-out rounded-lg"
+              *ngFor="
+                let contact of (appState$ | async)?.appData?.data?.contacts
+              "
             >
               <div class="flex flex-col justify-center items-center">
-                <img src="assets/contacts.jfif" alt="Contact Image" class="mb-2" width="100" height="100">
-                <h5 class="text-2xl text-center">
-                    Name: {{ contact.firstName }} {{ contact.lastName }}
+                <img
+                  src="assets/contacts.jfif"
+                  alt="Contact Image"
+                  class="mb-2"
+                  width="100"
+                  height="100"
+                />
+                <h5 class="text-2xl text-center border-b-2 border-yellow-500">
+                  Name: {{ contact.firstName }} {{ contact.lastName }}
                 </h5>
-                <p class="text-gray-400 text-center">Mail 📧: {{ contact.email }}</p>
-                <p class="text-1xl text-center">User 🧭: {{ contact.username }}</p>
+                <p class="text-gray-400 text-center">
+                  Mail 📧: {{ contact.email }}
+                </p>
+                <p class="text-1xl text-center">
+                  User 🧭: {{ contact.username }}
+                </p>
               </div>
             </div>
           </div>

@@ -2,7 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
 
 import { ContactInfo } from '../interfaces/contactFormInfo';
 import { ContactService } from '../../service/contact.service';
@@ -12,13 +16,11 @@ import { Contact } from '../interfaces/contact';
 @Component({
   selector: 'app-template-contact-form',
   standalone: true,
-  imports: [MatDialogModule,MatFormFieldModule,CommonModule,FormsModule],
+  imports: [MatDialogModule, MatFormFieldModule, CommonModule, FormsModule],
   templateUrl: './template-contact-form.component.html',
-  styleUrl: './template-contact-form.component.css'
+  styleUrl: './template-contact-form.component.css',
 })
 export class TemplateContactFormComponent implements OnInit {
-
-
   userInfo: ContactInfo = {
     firstName: 'Abdul',
     lastName: '',
@@ -26,25 +28,26 @@ export class TemplateContactFormComponent implements OnInit {
     email: '',
     phoneNumber: '',
     address: '',
-    id: 0
-  }
+    id: 0,
+  };
 
   // HERE THE BELOW DECORATOR it's used to get a reference to the NgForm directive named 'form' in the component's template
 
   @ViewChild('form') form: NgForm;
 
-  constructor(private contactService: ContactService,
+  constructor(
+    private contactService: ContactService,
     private coreService: CoreService,
     private _dialogRef: MatDialogRef<TemplateContactFormComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { contact: ContactInfo }) {}
+    @Inject(MAT_DIALOG_DATA) public data: { contact: ContactInfo }
+  ) {}
 
-    ngOnInit(): void {
-      // If data is provided, initialize the form with the existing contact data
-      if (this.data && this.data.contact) {
-        this.userInfo = { ...this.data.contact };
-      }
+  ngOnInit(): void {
+    // If data is provided, initialize the form with the existing contact data
+    if (this.data && this.data.contact) {
+      this.userInfo = { ...this.data.contact };
     }
-
+  }
 
   onFormSubmit(form: NgForm, e: SubmitEvent) {
     if (this.form.valid) {
@@ -54,7 +57,9 @@ export class TemplateContactFormComponent implements OnInit {
           .update$(this.data.contact.id, this.form.value)
           .subscribe({
             next: (val: any) => {
-              this.coreService.openSnackBar('Contact detail updated Successfully 👍!');
+              this.coreService.openSnackBar(
+                'Contact detail updated Successfully 👍!'
+              );
               this._dialogRef.close(true);
             },
             error: (err: any) => {
@@ -75,5 +80,4 @@ export class TemplateContactFormComponent implements OnInit {
       }
     }
   }
-
 }
