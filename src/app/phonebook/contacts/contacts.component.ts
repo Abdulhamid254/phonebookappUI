@@ -213,7 +213,7 @@ onSortUpdated(direction: 'asc' | 'desc'): void {
           data: { contacts: updatedContacts },
         });
       },
-      error: (error: string) => {
+      error: (error: Error) => {
         this.coreService.openSnackBar('Error Occureed ⚠️!');
 
         // Complete the loading state
@@ -248,7 +248,7 @@ onSortUpdated(direction: 'asc' | 'desc'): void {
       const deletionObservable: Observable<CustomResponse> = this.contactService
         .delete$(contactId)
         .pipe(
-          catchError((error: string) => {
+          catchError((error: Error) => {
             this.isLoading.next(false);
             this.coreService.openSnackBar(
               `Error deleting contact with ID ${contactId}: ${error} ⚠️!`
@@ -268,7 +268,7 @@ onSortUpdated(direction: 'asc' | 'desc'): void {
 
         this.isLoading.next(false);
       },
-      error: (error: string) => {
+      error: (error: Error) => {
         this.coreService.openSnackBar(`Error Occureed ⚠️! ${error}`);
 
         this.isLoading.next(false);
